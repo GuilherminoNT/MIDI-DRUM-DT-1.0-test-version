@@ -28,3 +28,11 @@ Note: This is a work in progress and changes may occur frequently. Be sure to ch
 Please feel free to contribute, report issues or suggest improvements. Your participation is most welcome!
 
 Thanks to Ryo Kosaka for his amazing work creating the HelloDrum library.
+
+
+*************************************************************************************************************************************************
+
+LCD circuit :
+
+![image](https://github.com/GuilherminoNT/MIDI-DRUM-DT-1.0-test-version/assets/63618124/99fa1499-559a-4fc7-a084-8fcba1aca6b9)
+
