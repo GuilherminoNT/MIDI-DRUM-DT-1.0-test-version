@@ -1,10 +1,5 @@
 # MIDI-DRUM-DT-87
-MIDI DRUM CONTROLLER 
-
-                ![image](https://github.com/GuilherminoNT/MIDI-DRUM-DT-1.0-test-version/assets/63618124/53b2bf50-390b-419e-a263-3ba587c3bd28)
-
-
-                                                                     
+MIDI DRUM CONTROLLER                                                                            
  
                                                                      
 
