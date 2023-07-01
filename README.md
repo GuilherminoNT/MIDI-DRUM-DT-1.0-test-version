@@ -16,7 +16,7 @@ Sinta-se à vontade para contribuir, reportar problemas ou sugerir melhorias. Su
 Agradecemos a Ryo Kosaka pelo seu trabalho incrível na criação da biblioteca HelloDrum.
 
 
-
+************************************************************************************************************************************************
 
 
 MIDI controller based on the HelloDrum library
