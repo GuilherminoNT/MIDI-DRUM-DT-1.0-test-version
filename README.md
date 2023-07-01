@@ -1,7 +1,7 @@
 # MIDI-DRUM-DT-87
 MIDI DRUM CONTROLLER                                                                            
  
-                                                                     
+************************************************************************************************************************************************                                                                     
 
 Controlador MIDI baseado na biblioteca HelloDrum
 
