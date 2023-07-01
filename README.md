@@ -1,7 +1,8 @@
 # MIDI-DRUM-DT-87
 MIDI DRUM CONTROLLER 
 
-![image](https://github.com/GuilherminoNT/MIDI-DRUM-DT-1.0-test-version/assets/63618124/c3138c98-a439-4870-aa64-d12ec9703b1f)
+                ![image](https://github.com/GuilherminoNT/MIDI-DRUM-DT-1.0-test-version/assets/63618124/53b2bf50-390b-419e-a263-3ba587c3bd28)
+
 
                                                                      
  
@@ -18,6 +19,9 @@ regularmente para obter as versões mais recentes do código.
 Sinta-se à vontade para contribuir, reportar problemas ou sugerir melhorias. Sua participação é muito bem-vinda!
 
 Agradecemos a Ryo Kosaka pelo seu trabalho incrível na criação da biblioteca HelloDrum.
+
+
+
 
 
 MIDI controller based on the HelloDrum library
