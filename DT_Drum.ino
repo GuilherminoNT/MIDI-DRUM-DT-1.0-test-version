@@ -140,10 +140,10 @@ void setup()
   //EEPROM_ESP.begin(512);
 
   //Se você usar Hairless MIDI ou loop midi, você deve comentar a próxima linha.
-  MIDI.begin(10);
+  MIDI.begin();
   //E descomente as próximas duas linhas. Por favor, defina a taxa de transmissão de Hairless para 38400.
   //MIDI.begin();
-  //Serial.begin(38400);
+  Serial.begin(115200);
   Wire.begin();
   
 /************************************************************************************************/
@@ -435,15 +435,15 @@ if (RackTom_2.hit == true)
 //FloorTom1
 if (FloorTom_X.hit == true)
   {
-    MIDI.sendNoteOn(RackTom_3.note, RackTom_3.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(RackTom_3.note, 0, 10);
+    MIDI.sendNoteOn(FloorTom_X.note, FloorTom_X.velocity, 10); //(note, velocity, channel)
+    MIDI.sendNoteOff(FloorTom_X.note, 0, 10);
   }   
 //FloorTom2  
 if
   (FloorTom_XX.hit == true)
   {
-    MIDI.sendNoteOn(RackTom_3.note, RackTom_3.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(RackTom_3.note, 0, 10);
+    MIDI.sendNoteOn(FloorTom_XX.note, FloorTom_XX.velocity, 10); //(note, velocity, channel)
+    MIDI.sendNoteOff(FloorTom_XX.note, 0, 10);
   }   
 //Cymbal 1 
   if (Cymbal_1.hit == true)
@@ -484,8 +484,8 @@ if
   
   if (Ride_3.hit == true)
   {
-    MIDI.sendNoteOn(Ride_2.note, Ride_2.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Ride_2.note, 0, 10);
+    MIDI.sendNoteOn(Ride_3.hit, Ride_3.velocity, 10); //(note, velocity, channel)
+    MIDI.sendNoteOff(Ride_3.note, 0, 10);
   }  
 
 }
