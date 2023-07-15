@@ -136,13 +136,10 @@ void setup()
   
 /************************************************************************************************/
 
-  //se você usa ESP32, tem que descomentar a próxima linha.
-  //EEPROM_ESP.begin(512);
-
-  //Se você usar Hairless MIDI ou loop midi, você deve comentar a próxima linha.
+  
+  
   MIDI.begin();
-  //E descomente as próximas duas linhas. Por favor, defina a taxa de transmissão de Hairless para 38400.
-  //MIDI.begin();
+  
   Serial.begin(115200);
   Wire.begin();
   
