@@ -481,7 +481,7 @@ if
   
   if (Ride_3.hit == true)
   {
-    MIDI.sendNoteOn(Ride_3.hit, Ride_3.velocity, 10); //(note, velocity, channel)
+    MIDI.sendNoteOn(Ride_3.note, Ride_3.velocity, 10); //(note, velocity, channel)
     MIDI.sendNoteOff(Ride_3.note, 0, 10);
   }  
 
