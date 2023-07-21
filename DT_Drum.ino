@@ -89,15 +89,20 @@ HelloDrumButton button(6, 7, 8, 9, 10);  //(EDIT,UP,DOWN,NEXT,BACK)
 
 /************************************************************************************************/
 /************************************************************************************************/
+
 struct MidiNote {
   int note;
   int velocity;
+  int channel; 
 };
 
 const int MAX_ACTIVE_NOTES = 16;  // Defina o tamanho máximo do vetor de notas ativas
 
 MidiNote activeNotes[MAX_ACTIVE_NOTES];  // Vetor para armazenar as notas MIDI ativas
 int numActiveNotes = 0;                  // Variável para acompanhar o número atual de notas ativas
+
+
+
 /************************************************************************************************/
 /************************************************************************************************/
 
@@ -377,13 +382,13 @@ void loop() {
 
   if (hihatPedal.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-        activeNotes[numActiveNotes++] = {hihatPedal.note, hihatPedal.velocity};
+        activeNotes[numActiveNotes++] = {hihatPedal.note, hihatPedal.velocity, 1};
     }
 }
 
   //sending state of pedal with controll change
   if (hihatPedal.moving == true) {
-    MIDI.sendControlChange(4, hihatPedal.pedalCC, 10);
+    MIDI.sendControlChange(4, hihatPedal.pedalCC, 1);
   }
   /************************************************************************************************/
   // Hi-Hat (prato)
@@ -392,13 +397,13 @@ if (hihat.hit == true) {
   // 1. Open hi-hat
   if (hihatPedal.openHH == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = {hihat.noteOpen, hihat.velocity};
+      activeNotes[numActiveNotes++] = {hihat.noteOpen, hihat.velocity, 1};
     }
   }
   // 2. Closed hi-hat
   else if (hihatPedal.closeHH == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = {hihat.noteClose, hihat.velocity};
+      activeNotes[numActiveNotes++] = {hihat.noteClose, hihat.velocity, 16};
     }
   }
 }
@@ -406,109 +411,111 @@ if (hihat.hit == true) {
   /*                                   Sending MIDI signals.                                      */
   if (kick.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { kick.note, kick.velocity };
+      activeNotes[numActiveNotes++] = { kick.note, kick.velocity, 2 };
     }
   }
 
   // Exemplo para a peça Snare
   if (snare.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { snare.note, snare.velocity };
+      activeNotes[numActiveNotes++] = { snare.note, snare.velocity, 3 };
     }
   }
 
   // Exemplo para a peça RackTom_1
   if (RackTom_1.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { RackTom_1.note, RackTom_1.velocity };
+      activeNotes[numActiveNotes++] = { RackTom_1.note, RackTom_1.velocity, 4 };
     }
   }
 
   // Exemplo para a peça RackTom_2
   if (RackTom_2.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { RackTom_2.note, RackTom_2.velocity };
+      activeNotes[numActiveNotes++] = { RackTom_2.note, RackTom_2.velocity, 5 };
     }
   }
 
   // Exemplo para a peça RackTom_3
   if (RackTom_3.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { RackTom_3.note, RackTom_3.velocity };
+      activeNotes[numActiveNotes++] = { RackTom_3.note, RackTom_3.velocity, 6 };
     }
   }
 
   // Exemplo para a peça FloorTom_X
   if (FloorTom_X.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { FloorTom_X.note, FloorTom_X.velocity };
+      activeNotes[numActiveNotes++] = { FloorTom_X.note, FloorTom_X.velocity, 7 };
     }
   }
 
   // Exemplo para a peça FloorTom_XX
   if (FloorTom_XX.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { FloorTom_XX.note, FloorTom_XX.velocity };
+      activeNotes[numActiveNotes++] = { FloorTom_XX.note, FloorTom_XX.velocity, 8 };
     }
   }
 
   // Exemplo para a peça Cymbal_1
   if (Cymbal_1.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Cymbal_1.note, Cymbal_1.velocity };
+      activeNotes[numActiveNotes++] = { Cymbal_1.note, Cymbal_1.velocity, 9 };
     }
   }
 
   // Exemplo para a peça Cymbal_2
   if (Cymbal_2.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Cymbal_2.note, Cymbal_2.velocity };
+      activeNotes[numActiveNotes++] = { Cymbal_2.note, Cymbal_2.velocity, 10 };
     }
   }
 
   // Exemplo para a peça Cymbal_3
   if (Cymbal_3.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Cymbal_3.note, Cymbal_3.velocity };
+      activeNotes[numActiveNotes++] = { Cymbal_3.note, Cymbal_3.velocity, 11 };
     }
   }
 
   // Exemplo para a peça Cymbal_4
   if (Cymbal_4.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Cymbal_4.note, Cymbal_4.velocity };
+      activeNotes[numActiveNotes++] = { Cymbal_4.note, Cymbal_4.velocity, 12 };
     }
   }
 
   // Exemplo para a peça Ride_1
   if (Ride_1.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Ride_1.note, Ride_1.velocity };
+      activeNotes[numActiveNotes++] = { Ride_1.note, Ride_1.velocity, 13 };
     }
   }
 
   // Exemplo para a peça Ride_2
   if (Ride_2.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Ride_2.note, Ride_2.velocity };
+      activeNotes[numActiveNotes++] = { Ride_2.note, Ride_2.velocity, 14 };
     }
   }
 
   // Exemplo para a peça Ride_3
   if (Ride_3.hit == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = { Ride_3.note, Ride_3.velocity };
+      activeNotes[numActiveNotes++] = { Ride_3.note, Ride_3.velocity, 15 };
     }
   }
 
   for (int i = 0; i < numActiveNotes; i++) {
-    MIDI.sendNoteOn(activeNotes[i].note, activeNotes[i].velocity, 10);  // Envia as mensagens Note On
-  }
+  MIDI.sendNoteOn(activeNotes[i].note, activeNotes[i].velocity, activeNotes[i].channel);
+}
 
-  for (int i = 0; i < numActiveNotes; i++) {
-    MIDI.sendNoteOff(activeNotes[i].note, 0, 10);  // Envia as mensagens Note Off
-  }
+// Envia as mensagens Note Off para cada peça usando o canal correspondente
+for (int i = 0; i < numActiveNotes; i++) {
+  MIDI.sendNoteOff(activeNotes[i].note, 0, activeNotes[i].channel);
+}
 
-  // Limpe o número de notas ativas para o próximo ciclo
-  numActiveNotes = 0;
+// Limpe o número de notas ativas para o próximo ciclo
+numActiveNotes = 0;
+
 }
