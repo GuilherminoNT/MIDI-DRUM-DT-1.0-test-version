@@ -86,6 +86,22 @@ HelloDrum Ride_3(15);    // PAD 16
 HelloDrumButton button(6, 7, 8, 9, 10); //(EDIT,UP,DOWN,NEXT,BACK)
 /************************************************************************************************/
 
+
+/************************************************************************************************/
+/************************************************************************************************/
+struct MidiNote {
+  int note;
+  int velocity;
+};
+
+const int MAX_ACTIVE_NOTES = 16; // Defina o tamanho máximo do vetor de notas ativas
+
+MidiNote activeNotes[MAX_ACTIVE_NOTES]; // Vetor para armazenar as notas MIDI ativas
+int numActiveNotes = 0; // Variável para acompanhar o número atual de notas ativas
+/************************************************************************************************/
+/************************************************************************************************/
+
+
 /************************************************************************************************/
 /// lastInteractionTime >= 10000) { LCD lcd.noBacklight(); 
 unsigned long lastInteractionTime = 0;
@@ -136,11 +152,14 @@ void setup()
   
 /************************************************************************************************/
 
-  
-  
-  MIDI.begin();
-  
-  Serial.begin(115200);
+  //se você usa ESP32, tem que descomentar a próxima linha.
+  //EEPROM_ESP.begin(512);
+
+  //Se você usar Hairless MIDI ou loop midi, você deve comentar a próxima linha.
+  MIDI.begin(31250 );
+  //E descomente as próximas duas linhas. Por favor, defina a taxa de transmissão de Hairless para 38400.
+  //MIDI.begin();
+  //Serial.begin(115200);
   Wire.begin();
   
 /************************************************************************************************/
@@ -369,6 +388,7 @@ void loop()
   {
     MIDI.sendNoteOn(hihatPedal.note, hihatPedal.velocity, 10); //(note of pedal, velocity, channel)
     MIDI.sendNoteOff(hihatPedal.note, 0, 10);
+    
   }
 
   //sending state of pedal with controll change
@@ -387,103 +407,124 @@ void loop()
     {
       MIDI.sendNoteOn(hihat.noteOpen, hihat.velocity, 10); //(note of open, velocity, channel)
       MIDI.sendNoteOff(hihat.noteOpen, 0, 10);
+      
     }
     //2.close
     else if (hihatPedal.closeHH == true)
     {
       MIDI.sendNoteOn(hihat.noteClose, hihat.velocity, 10); //(note of close, velocity, channel)
       MIDI.sendNoteOff(hihat.noteClose, 0, 10);
+      
     }
   }
 /************************************************************************************************/ 
 /*                                   Sending MIDI signals.                                      */
-//KICK
-  if (kick.hit == true)
-  {
-    MIDI.sendNoteOn(kick.note, kick.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(kick.note, 0, 10);
+if (kick.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {kick.note, kick.velocity};
   }
-
-//SNARE
-  if (snare.hit == true)
-  {
-    MIDI.sendNoteOn(snare.note, snare.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(snare.note, 0, 10);
-  }
-
-//RackTom1
-if (RackTom_1.hit == true)
-  {
-    MIDI.sendNoteOn(RackTom_1.note, RackTom_1.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(RackTom_1.note, 0, 10);
-  }
-//RackTom2
-if (RackTom_2.hit == true)
-  {
-    MIDI.sendNoteOn(RackTom_2.note, RackTom_2.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(RackTom_2.note, 0, 10);
-  }  
-//RackTom3
-  if (RackTom_3.hit == true)
-  {
-    MIDI.sendNoteOn(RackTom_3.note, RackTom_3.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(RackTom_3.note, 0, 10);
-  }  
-//FloorTom1
-if (FloorTom_X.hit == true)
-  {
-    MIDI.sendNoteOn(FloorTom_X.note, FloorTom_X.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(FloorTom_X.note, 0, 10);
-  }   
-//FloorTom2  
-if
-  (FloorTom_XX.hit == true)
-  {
-    MIDI.sendNoteOn(FloorTom_XX.note, FloorTom_XX.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(FloorTom_XX.note, 0, 10);
-  }   
-//Cymbal 1 
-  if (Cymbal_1.hit == true)
-  {
-    MIDI.sendNoteOn(Cymbal_1.note, Cymbal_1.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Cymbal_1.note, 0, 10);
-  }  
-//Cymbal 2
-  if (Cymbal_2.hit == true)
-  {
-    MIDI.sendNoteOn(Cymbal_2.note, Cymbal_2.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Cymbal_2.note, 0, 10);
-  }  
-//Cymbal 3
-  if (Cymbal_3.hit == true)
-  {
-    MIDI.sendNoteOn(Cymbal_3.note, Cymbal_3.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Cymbal_3.note, 0, 10);
-  }  
-//Cymbal 4
-  if (Cymbal_4.hit == true)
-  {
-    MIDI.sendNoteOn(Cymbal_4.note, Cymbal_4.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Cymbal_4.note, 0, 10);
-  }  
-//Ride 1 
-  if (Ride_1.hit == true)
-  {
-    MIDI.sendNoteOn(Ride_1.note, Ride_1.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Ride_1.note, 0, 10);
-  }  
-//Ride 2
-  if (Ride_2.hit == true)
-  {
-    MIDI.sendNoteOn(Ride_2.note, Ride_2.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Ride_2.note, 0, 10);
-  }  
-  
-  if (Ride_3.hit == true)
-  {
-    MIDI.sendNoteOn(Ride_3.note, Ride_3.velocity, 10); //(note, velocity, channel)
-    MIDI.sendNoteOff(Ride_3.note, 0, 10);
-  }  
-
 }
 
+// Exemplo para a peça Snare
+if (snare.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {snare.note, snare.velocity};
+  }
+}
+
+// Exemplo para a peça RackTom_1
+if (RackTom_1.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {RackTom_1.note, RackTom_1.velocity};
+  }
+}
+
+// Exemplo para a peça RackTom_2
+if (RackTom_2.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {RackTom_2.note, RackTom_2.velocity};
+  }
+}
+
+// Exemplo para a peça RackTom_3
+if (RackTom_3.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {RackTom_3.note, RackTom_3.velocity};
+  }
+}
+
+// Exemplo para a peça FloorTom_X
+if (FloorTom_X.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {FloorTom_X.note, FloorTom_X.velocity};
+  }
+}
+
+// Exemplo para a peça FloorTom_XX
+if (FloorTom_XX.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {FloorTom_XX.note, FloorTom_XX.velocity};
+  }
+}
+
+// Exemplo para a peça Cymbal_1
+if (Cymbal_1.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Cymbal_1.note, Cymbal_1.velocity};
+  }
+}
+
+// Exemplo para a peça Cymbal_2
+if (Cymbal_2.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Cymbal_2.note, Cymbal_2.velocity};
+  }
+}
+
+// Exemplo para a peça Cymbal_3
+if (Cymbal_3.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Cymbal_3.note, Cymbal_3.velocity};
+  }
+}
+
+// Exemplo para a peça Cymbal_4
+if (Cymbal_4.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Cymbal_4.note, Cymbal_4.velocity};
+  }
+}
+
+// Exemplo para a peça Ride_1
+if (Ride_1.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Ride_1.note, Ride_1.velocity};
+  }
+}
+
+// Exemplo para a peça Ride_2
+if (Ride_2.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Ride_2.note, Ride_2.velocity};
+  }
+}
+
+// Exemplo para a peça Ride_3
+if (Ride_3.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = {Ride_3.note, Ride_3.velocity};
+  }
+}
+
+for (int i = 0; i < numActiveNotes; i++) {
+  MIDI.sendNoteOn(activeNotes[i].note, activeNotes[i].velocity, 10); // Envia as mensagens Note On
+}
+
+for (int i = 0; i < numActiveNotes; i++) {
+  MIDI.sendNoteOff(activeNotes[i].note, 0, 10); // Envia as mensagens Note Off
+}
+
+// Limpe o número de notas ativas para o próximo ciclo
+numActiveNotes = 0;
+
+}
