@@ -5,7 +5,7 @@ MIDI DRUM CONTROLLER
 
 Controlador MIDI baseado na biblioteca HelloDrum
 
-Este projeto consiste em um controlador MIDI desenvolvido com base na biblioteca HelloDrum de Ryo Kosaka. O código está atualmente 
+Este projeto consiste em um controlador MIDI desenvolvido ou modificado por Guilhermino Angelim com base na biblioteca HelloDrum de Ryo Kosaka. O código está atualmente 
 em desenvolvimento e será continuamente atualizado para melhorias e adições de recursos.
 
 Observação: Este é um trabalho em andamento e podem ocorrer alterações frequentes. Certifique-se de verificar as atualizações 
@@ -21,9 +21,11 @@ Agradecemos a Ryo Kosaka pelo seu trabalho incrível na criação da biblioteca 
 
 MIDI controller based on the HelloDrum library
 
-This project consists of a MIDI controller developed based on Ryo Kosaka's HelloDrum library. The code is currently under development and will be continually updated for improvements and feature additions.
+This project consists of a MIDI controller developed or modified by Guilhermino Angelim based on Ryo Kosaka's HelloDrum library. The code is currently
+under development and will be continually updated for improvements and feature additions.
 
-Note: This is a work in progress and changes may occur frequently. Be sure to check updates regularly for the latest versions of code.
+Note: This is a work in progress and changes may occur frequently. Make sure you check for updates.
+regularly to get the latest versions of the code.
 
 Please feel free to contribute, report issues or suggest improvements. Your participation is most welcome!
 
