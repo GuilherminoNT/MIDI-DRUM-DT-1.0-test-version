@@ -376,20 +376,22 @@ void loop() {
   Ride_2.singlePiezo();       // PAD 15
   Ride_3.singlePiezo();       // PAD 16
 
-  /************************************************************************************************/
-  /*                                     HIHAT CONTROLLER                                        */
-  //Quando o hihat está fechado
-
-  if (hihatPedal.hit == true) {
-    if (numActiveNotes < MAX_ACTIVE_NOTES) {
-        activeNotes[numActiveNotes++] = {hihatPedal.note, hihatPedal.velocity, 1};
-    }
+/************************************************************************************************/
+/*                                     HIHAT CONTROLLER                                        */
+// Quando o hihat está fechado
+if (hihatPedal.hit == true) {
+  if (numActiveNotes < MAX_ACTIVE_NOTES) {
+    activeNotes[numActiveNotes++] = { hihatPedal.note, hihatPedal.velocity, 1 };
+  }
 }
 
-  //sending state of pedal with controll change
+// Envia as notas ativas e o estado do pedal ao mesmo tempo
+for (int i = 0; i < numActiveNotes; i++) {
   if (hihatPedal.moving == true) {
-    MIDI.sendControlChange(4, hihatPedal.pedalCC, 1);
+    // Envia o estado do pedal
+    MIDI.sendControlChange( 4, hihatPedal.pedalCC, 1);
   }
+}
   /************************************************************************************************/
   // Hi-Hat (prato)
 if (hihat.hit == true) {
@@ -397,13 +399,13 @@ if (hihat.hit == true) {
   // 1. Open hi-hat
   if (hihatPedal.openHH == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = {hihat.noteOpen, hihat.velocity, 1};
+      activeNotes[numActiveNotes++] = {hihat.noteOpen, hihat.velocity, 2};
     }
   }
   // 2. Closed hi-hat
   else if (hihatPedal.closeHH == true) {
     if (numActiveNotes < MAX_ACTIVE_NOTES) {
-      activeNotes[numActiveNotes++] = {hihat.noteClose, hihat.velocity, 16};
+      activeNotes[numActiveNotes++] = {hihat.noteClose, hihat.velocity, 2};
     }
   }
 }
